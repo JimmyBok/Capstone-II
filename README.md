@@ -1,6 +1,28 @@
-Patent Analysis
+Patent Citation Networks: A Graph Theory Representation
+
+Motivation:
+---
+
+Patents are mechanisms for individuals, companies, or governments to legally “own” ideas. The United States patent office states that a granted patent gives the patent owner **“the right to exclude others from making, using, offering for sale, or selling”** an idea or process for 20 years after the patent is granted, thus creating a legal monopoly over the implementation of an idea. I don't like monopolies.
+
+
+Encouraging economic progress and innovation is meant to be at the heart of the rational for patents or intellectual property (IP) rights.  and is encouraged  meant to encourage economic progress they are meant to encourage companies to invest in research, encourage the sharing company "trade secrets" with society, and protecting the rights for humans to benefit from "the product of his/her mind."
+
+Rise of Patent Trolls
+
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/images/Patent_troll "Logo Title Text 1")
+
+
+In essense those sound like good reasons, however it
+
+
+
+but not  and thus control a monopoly of the u  production technique. In the US  
 
 Overview:
+I used graph theory
+Summary:
+
 
 Problem: Can we use graph theory to gain a better understanding of how patents are organized.
 
