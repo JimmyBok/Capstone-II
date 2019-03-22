@@ -2,24 +2,7 @@ import numpy as np
 import pandas as pd
 import GraphTools as gt
 import community
-# def translate(lst,df2):
-#     #takes in a list of patent numbers
-#     #turns list into a one column data frame
-#     df1 = pd.DataFrame(np.array(lst),columns="PATENT")
-#     #returns merged list on "patent_id"
-#     return df1.merge(df2,on="PATENT")
-#
-# def create_graph(year=year_lst, subcategories=subcategory_lst):
-#     # Input: a date (or range of dates)
-#     #a category or range of categories
-#
-#     df1 = pd.DataFrame(np.array(year),columns ="year")
-#     df2 = pd.DataFrame(np.array(subcategpries),columns = )
-#     pass
-#     # Output: networkx graph object or edge list for networkx object
-#     # Subcategories, and "the ones that work with those"
-#     # Out of that patent, search the date and subcategory (???)
-#
+
 
 def create_subset_patents_lst(year_lst, subcategory_lst, patent_df):
 
@@ -37,14 +20,6 @@ def citing_finder(patent_df, column_tokeep, value_tokeep):
 def cited_finder(patent_df, cited_column, cited_value):
     mask = patent_df[cited_column] == cited_value
     return patent_df[mask]
-
-def find_citations(patent_subset, cit_df):
-    patent_lst = patent_subset["PATENT"].tolist()
-    return cit_df[cit_df["CITING"].isin(patent_subset["PATENT"].tolist())]
-
-def create_graph_object(cit_edg):
-    return nx.convert_matrix.from_pandas_edgelist(cit_edg, "CITING",'CITED')
-
 
 def year_cutter(df,start_year, end_year):
     mask = (df["GYEAR"] >=start_year) & (df["GYEAR"]<=end_year)
@@ -108,62 +83,40 @@ def create_cusip_graph(cusip_edge_df):
 
 #FINDING CITATIONS OF CITATIONS
 #citations of citations
-def down_citation_path(cit_df, patent_number,jumps_down_rabit_hole):
-    citation_list = cit_df[cit_df["CITING"] == patent_number]["CITED"].tolist()
-    collected_patent_citations_df = pd.DataFrame()
-    for _ in range(jumps_down_rabit_hole):
-        #put in a patten number to
+def down_citation_path(cit_df, patent_number,degrees_removed):
+    mask = cit_df["CITING"] == patent_number
+    citation_list = cit_df[mask]["CITED"].tolist()  #find 1st level of cited docs
+    collected_patent_citations_df = cit_df[mask]    #set df that I will add too
+    for _ in range(degrees_removed):
         current_lvl_citations = cit_df[cit_df["CITING"].isin(citation_list)]
         citation_list = current_lvl_citations["CITED"].tolist()
         collected_patent_citations_df=collected_patent_citations_df.append(current_lvl_citations, ignore_index=True, sort=False)
     return collected_patent_citations_df
 
-def up_citation_path(cit_df, patent_number,climbs_out_rabit_hole):
-    citation_list = cit_df[cit_df["CITED"] == patent_number]["CITING"].tolist()
-    collected_patent_citations_df = pd.DataFrame(cit_df[cit_df["CITED"] == patent_number])
-    for _ in range(climbs_out_rabit_hole):
+def up_citation_path(cit_df, patent_number,degrees_removed):
+    mask = cit_df["CITED"] == patent_number
+    citation_list = cit_df[mask]["CITING"].tolist()
+    collected_patent_citations_df = pd.DataFrame(cit_df[mask])
+    for _ in range(degrees_removed):
         #put in a patten number to
         current_lvl_citations = cit_df[cit_df["CITED"].isin(citation_list)]
         citation_list = current_lvl_citations["CITING"].tolist()
         collected_patent_citations_df=collected_patent_citations_df.append(current_lvl_citations, ignore_index=True, sort=False)
     return collected_patent_citations_df
 
-def down_citation_path_list(cit_df, patent_lst,jumps_down_rabit_hole):
-    citation_list = cit_df[cit_df["CITING"].isin(patent_lst)]["CITED"].tolist()
-    collected_patent_citations_df = pd.DataFrame(cit_df[cit_df["CITING"].isin(patent_lst)])
-    for _ in range(jumps_down_rabit_hole):
-        #put in a patten number to
-        current_lvl_citations = cit_df[cit_df["CITING"].isin(citation_list)]
-        citation_list = current_lvl_citations["CITED"].tolist()
-        collected_patent_citations_df=collected_patent_citations_df.append(current_lvl_citations, ignore_index=True, sort=False)
-    return collected_patent_citations_df
 
 
 #needs check
-def down_cusip_citation_path(spliced_citation_cusip_df, cusip_id,jumps_down_rabit_hole):
-    citation_list = spliced_citation_cusip_df[spliced_citation_cusip_df["CITING_CUSIP"] ==str(cusip_id)]["CITED_CUSIP"].tolist()
-    collected_cusip_citations_df = pd.DataFrame()
-    for _ in range(jumps_down_rabit_hole):
+def down_cusip_citation_path(spliced_citation_cusip_df, cusip_id,degrees_removed):
+    mask =spliced_citation_cusip_df["CITING_CUSIP"] ==str(cusip_id)
+    citation_list = spliced_citation_cusip_df[mask]["CITED_CUSIP"].tolist()
+    collected_cusip_citations_df = pd.DataFrame(spliced_citation_cusip_df[mask])
+    for _ in range(degrees_removed):
         #put in a patten number to
         current_lvl_citations = spliced_citation_cusip_df[spliced_citation_cusip_df["CITING_CUSIP"].isin(citation_list)]
         citation_list = current_lvl_citations["CITED_CUSIP"].tolist()
         collected_cusip_citations_df=collected_cusip_citations_df.append(current_lvl_citations, ignore_index=True, sort=False)
     return collected_cusip_citations_df
-
-
-
-#write to cut out citations with only limited number of connections
-# edge_lst_dict = dict(drug_edgelst_85.CITING.value_counts())
-# citing_lst =[]
-# for key in edge_lst_dict:
-#     if edge_lst_dict[key] >2:
-#         citing_lst.append(key)
-# edge_lst_dict = dict(drug_edgelst_85.CITED.value_counts())
-# edge_lst =[]
-# for key in edge_lst_dict:
-#     if edge_lst_dict[key] >2:
-#         edge_lst.append(key)
-
 
 
 
@@ -174,25 +127,6 @@ def show_graph_between_edge_centrality(graph):
     gt.label_edges(graph,between_centralities)
 
     return show_graph(graph)
-
-#for undirected graphs only :(
-def biggest_connected_piece(cur_graph):
-    if not nx.is_connected(cur_graph):
-        # get a list of unconnected networks
-        sub_graphs = nx.connected_component_subgraphs(cur_graph)
-
-        main_graph = sub_graphs[0]
-
-        # find the largest network in that list
-        for sg in sub_graphs:
-            if len(sg.nodes()) > len(main_graph.nodes()):
-                main_graph = sg
-        return main_graph
-
-def color_nodes():
-    pass #import starter code from gt
-def label_nodes():
-    pass #import starter code from gt
 
 #for undirected graphs only :(
 def biggest_connected_piece(cur_graph):
