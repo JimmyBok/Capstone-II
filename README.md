@@ -85,7 +85,8 @@ Here is the patent network for the genetically modified mammals patent found at 
 
 A higher betweenness centrality is indicative of in degree node of the weighted edge having a larger citation network then the other side of the split.
 
-_Sprouting from PN 4098876: Reverse sandwich immunoassay_
+- Betweenness Centrality .03 --> PN 4299815 Cacinoembryonic antigens
+- Betweenness Centrality .02 Sprouting from PN 4098876: Reverse sandwich immunoassay
 - Betweenness Centrality .02 --> PN 3995019: Diagnostic reagent system:
 - Betweenness Centrality .01 --> PN 3896217: Method and apparatus for radioimmunoassay with regeneration of immunoadsorbent
 - Betweenness Centrality .01 --> PN 3975511: Solid phase radioimmunoassay
@@ -97,7 +98,7 @@ _Sprouting from PN 4098876: Reverse sandwich immunoassay_
 ![Graph of Patent degrees removed: ZOOMED](images/Genetics_half.png)
 
 
-I did a google search of patent titles and labeled the corresponding nodes. An interesting finding is that multiple patents were titled 'Caacinoembryonic antigens' and through key words alone one can see this citation network for genetically modified mammals.
+I did a google search of patent titles and labeled the corresponding nodes. An interesting finding is that multiple patents were titled 'Cacinoembryonic antigens' and through key words alone one can see this citation network for genetically modified mammals.
 
 
 #### Categories citing across categories
