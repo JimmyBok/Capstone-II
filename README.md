@@ -79,11 +79,26 @@ There is a lot of noise in this graph here, but I wanted to give the reader a lo
 
 Here is the patent network for the genetically modified mammals patent found at the top in white. Each color change across the graph downward indicates an increase in shortest longest graph.
 
+#### Betweenness Centrality
+
+![Graph of Patent degrees removed](images/betweeness centality.png)
+
+A higher betweenness centrality is indicative of in degree node of the weighted edge having a larger citation network then the other side of the split.
+
+_Sprouting from PN 4098876: Reverse sandwich immunoassay_
+- Betweenness Centrality .02 --> PN 3995019: Diagnostic reagent system:
+- Betweenness Centrality .01 --> PN 3896217: Method and apparatus for radioimmunoassay with regeneration of immunoadsorbent
+- Betweenness Centrality .01 --> PN 3975511: Solid phase radioimmunoassay
+
 #### Same Graph with Patent Titles as Node Labels
+
+![Graph of Patent degrees removed](images/Genetics_title_graph.png)
 
 ![Graph of Patent degrees removed](images/Genetics_half.png)
 
+
 I did a google search of patent titles and labeled the corresponding nodes. An interesting finding is that multiple patents were titled 'Caacinoembryonic antigens' and through key words alone one can see this citation network for genetically modified mammals.
+
 
 #### Categories citing across categories
 
