@@ -81,7 +81,7 @@ Here is the patent network for the genetically modified mammals patent found at 
 
 #### Betweenness Centrality
 
-![Graph of Patent degrees removed](images/betweeness centality.png)
+![betweeness_centality](images/betweeness_centality.png)
 
 A higher betweenness centrality is indicative of in degree node of the weighted edge having a larger citation network then the other side of the split.
 
@@ -94,7 +94,7 @@ _Sprouting from PN 4098876: Reverse sandwich immunoassay_
 
 ![Graph of Patent degrees removed](images/Genetics_title_graph.png)
 
-![Graph of Patent degrees removed](images/Genetics_half.png)
+![Graph of Patent degrees removed: ZOOMED](images/Genetics_half.png)
 
 
 I did a google search of patent titles and labeled the corresponding nodes. An interesting finding is that multiple patents were titled 'Caacinoembryonic antigens' and through key words alone one can see this citation network for genetically modified mammals.
